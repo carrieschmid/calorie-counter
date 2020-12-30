@@ -24,8 +24,20 @@ class BurgerBuilder extends Component {
             biking: 0
         },
         totalCount: 0,
-        // submittable: false,
+        submitable: false,
         submitting: false
+    }
+
+      updateSubmitState (activity) {
+        // a copy of state doesn't work here because we might not get updated ingredients, pass it in as an argument
+        const sum = Object.keys(activity)
+            .map( actKey => {
+                return activity[actKey];
+            } )
+            .reduce( ( sum, el ) => {
+                return sum + el;
+            }, 0 );
+        this.setState( { submitable: sum > 0 } );
     }
 
       submitHandler = () => {
@@ -43,7 +55,7 @@ class BurgerBuilder extends Component {
         const oldTotal = this.state.totalCount;
         const newCount = oldTotal + calorieAddition;
         this.setState( { totalCount: newCount, activity: updatedActivities } );
-        // this.updatePurchaseState(updatedIngredients);
+        this.updateSubmitState(updatedActivities);
     }
 
     removeActivityHandler = ( type ) => {
@@ -60,7 +72,7 @@ class BurgerBuilder extends Component {
         const oldTotal = this.state.totalCount;
         const newCount = oldTotal - countDeduction;
         this.setState( { totalCount: newCount, activity: updatedActivities } );
-        // this.updatePurchaseState(updatedIngredients);
+        this.updateSubmitState(updatedActivities);
     }
 
     render () {
@@ -77,7 +89,9 @@ class BurgerBuilder extends Component {
                 <CounterControls
                  activityAdded={this.addActivityHandler}
                  activityRemoved={this.removeActivityHandler}
-                 submitted={this.purchaseHandler}
+                 disabled={disabledInfo}
+                 submitable={this.state.submitable}
+                 submitted={this.submitHandler}
                  count={this.state.totalCount} />
             </Aux>
         );

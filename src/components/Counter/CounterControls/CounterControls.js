@@ -11,6 +11,8 @@ const controls = [
     { label: 'Stairs', type: 'stairs' },
 ];
 
+
+
 const counterControls = (props) => (
     <div className={classes.CounterControls}>
         <p>Current Total: <strong>{props.total}</strong></p>
@@ -20,15 +22,17 @@ const counterControls = (props) => (
                 label={ctrl.label}
                 added={() => props.activityAdded(ctrl.type)}
                 removed={() => props.activityRemoved(ctrl.type)}
-                // disabled={props.disabled[ctrl.type]} 
+                disabled={props.disabled[ctrl.type]} 
                 />
         ))}
           <button 
             className={classes.SubmitButton}
-            // disabled={!props.purchasable}
+            disabled={!props.submitable}
             onClick={props.submitted}>ORDER NOW</button>
        
     </div>
 );
+
+
 
 export default counterControls;
