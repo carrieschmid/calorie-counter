@@ -23,7 +23,7 @@ class BurgerBuilder extends Component {
             stairs: 0,
             biking: 0
         },
-        totalCount: 0,
+        totalCount: 100,
         submitable: false,
         submitting: false
     }
@@ -46,14 +46,19 @@ class BurgerBuilder extends Component {
 
        addActivityHandler = ( type ) => {
         const oldCount = this.state.activity[type];
+        console.log(oldCount);
         const updatedCount = oldCount + 1;
+        console.log(updatedCount);
         const updatedActivities = {
             ...this.state.activity
         };
         updatedActivities[type] = updatedCount;
+        console.log(updatedActivities[type]);
         const calorieAddition = ACTIVITY_CALORIES[type];
+        console.log(calorieAddition);
         const oldTotal = this.state.totalCount;
         const newCount = oldTotal + calorieAddition;
+        console.log(newCount);
         this.setState( { totalCount: newCount, activity: updatedActivities } );
         this.updateSubmitState(updatedActivities);
     }

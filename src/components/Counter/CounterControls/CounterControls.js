@@ -14,8 +14,9 @@ const controls = [
 
 
 const counterControls = (props) => (
+    
     <div className={classes.CounterControls}>
-        <p>Current Total: <strong>{props.total}</strong></p>
+        <p>Current Total: <strong>{console.log(props.total)}</strong></p>
         {controls.map(ctrl => (
             <CounterControl 
                 key={ctrl.label} 
