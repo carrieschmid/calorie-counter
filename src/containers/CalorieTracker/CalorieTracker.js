@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux/Aux';
 import Counter from '../../components/Counter/Counter';
 import CounterControls from '../../components/Counter/CounterControls/CounterControls';
+import Modal from '../../components/UI/Modal/Modal';
+import ActivitySummary from '../../components/Counter/ActivitySummary/ActivitySummary';
 
 const ACTIVITY_CALORIES = {
     walking: 50,
@@ -42,6 +44,14 @@ class BurgerBuilder extends Component {
 
       submitHandler = () => {
         this.setState({submitting: true});
+    }
+
+     submitCancelHandler = () => {
+        this.setState({submitting: false});
+    }
+
+     submitContinueHandler = () => {
+        alert('You continue!');
     }
 
        addActivityHandler = ( type ) => {
@@ -90,6 +100,13 @@ class BurgerBuilder extends Component {
      
         return (
             <Aux>
+                 <Modal show={this.state.submitting} modalClosed={this.submitCancelHandler}>
+                    <ActivitySummary 
+                        activity={this.state.activity}
+                        total={this.state.totalCount}
+                        submitCancelled={this.submitCancelHandler}
+                        submitContinued={this.submitContinueHandler} />
+                </Modal>
                 <Counter activity={this.state.activity}/>
                 <CounterControls
                  activityAdded={this.addActivityHandler}

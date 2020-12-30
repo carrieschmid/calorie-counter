@@ -29,7 +29,7 @@ const counterControls = (props) => (
           <button 
             className={classes.SubmitButton}
             disabled={!props.submitable}
-            onClick={props.submitted}>ORDER NOW</button>
+            onClick={props.submitted}>SUBMIT</button>
        
     </div>
 );
