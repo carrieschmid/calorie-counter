@@ -14,7 +14,7 @@ const ACTIVITY_CALORIES = {
     biking: 75 
 };
 
-class BurgerBuilder extends Component {
+class CalorieTracker extends Component {
 
     state = {
         activity: {
@@ -120,4 +120,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default BurgerBuilder;
+export default CalorieTracker;

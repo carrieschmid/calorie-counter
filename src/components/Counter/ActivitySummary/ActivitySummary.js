@@ -27,8 +27,8 @@ class ActivitySummary extends Component {
                 </ul>
                 <p><strong>Total Calories: {this.props.total}</strong></p>
                 <p>Submit?</p>
-                <Button btnType="Danger" clicked={this.props.purchaseCancelled}>CANCEL</Button>
-                <Button btnType="Success" clicked={this.props.purchaseContinued}>CONTINUE</Button>
+                <Button btnType="Danger" clicked={this.props.submitCancelled}>CANCEL</Button>
+                <Button btnType="Success" clicked={this.props.submitContinued}>CONTINUE</Button>
             </Aux>
         );
     }
