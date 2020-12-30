@@ -13,16 +13,20 @@ const controls = [
 
 const counterControls = (props) => (
     <div className={classes.CounterControls}>
-        {/* <p>Current Total: <strong>{props.total.toFixed(2)}</strong></p> */}
+        <p>Current Total: <strong>{props.total}</strong></p>
         {controls.map(ctrl => (
             <CounterControl 
                 key={ctrl.label} 
                 label={ctrl.label}
-                // added={() => props.Added(ctrl.type)}
-                // removed={() => props.ingredientRemoved(ctrl.type)}
+                added={() => props.activityAdded(ctrl.type)}
+                removed={() => props.activityRemoved(ctrl.type)}
                 // disabled={props.disabled[ctrl.type]} 
                 />
         ))}
+          <button 
+            className={classes.SubmitButton}
+            // disabled={!props.purchasable}
+            onClick={props.submitted}>ORDER NOW</button>
        
     </div>
 );
