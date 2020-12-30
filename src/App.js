@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import CalorieTracker from './containers/CalorieTracker/CalorieTracker';
 import Layout from './hoc/Layout/Layout';
 
 
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <p>Calorie Counter</p>
+          <CalorieTracker/>
         </Layout>
       </div>
     );
