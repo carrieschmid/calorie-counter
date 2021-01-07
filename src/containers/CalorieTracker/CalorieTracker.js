@@ -4,6 +4,9 @@ import Counter from '../../components/Counter/Counter';
 import CounterControls from '../../components/Counter/CounterControls/CounterControls';
 import Modal from '../../components/UI/Modal/Modal';
 import ActivitySummary from '../../components/Counter/ActivitySummary/ActivitySummary';
+import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 const ACTIVITY_CALORIES = {
     walking: 50,
@@ -17,17 +20,22 @@ const ACTIVITY_CALORIES = {
 class CalorieTracker extends Component {
 
     state = {
-        activity: {
-            walking: 0,
-            running: 0,
-            yoga: 0,
-            lifting: 0,
-            stairs: 0,
-            biking: 0
-        },
+        activity: null,
         totalCount: 100,
         submitable: false,
-        submitting: false
+        submitting: false,
+        loading: false,
+        error: false
+    }
+
+        componentDidMount () {
+        axios.get('https://calorie-counter-14ff5-default-rtdb.firebaseio.com/activity.json')
+            .then( response => {
+                this.setState( { activity: response.data } );
+            } )
+            .catch( error => {
+                this.setState( { error: true } );
+            } );
     }
 
       updateSubmitState (activity) {
@@ -51,7 +59,28 @@ class CalorieTracker extends Component {
     }
 
      submitContinueHandler = () => {
-        alert('You continue!');
+        const entry = {
+            activity: this.state.activity,
+            count: this.state.totalCount,
+            customer: {
+                name: 'Carrie Schmid',
+                address: {
+                    street: 'Teststreet 1',
+                    zipCode: '41351',
+                    country: 'Germany'
+                },
+                email: 'test@test.com'
+            }
+        }
+        //.json for Firebase
+        axios.post( '/entry.json', entry )
+           .then( response => {
+                this.setState( { loading: false, purchasing: false } );
+            } )
+            .catch( error => {
+                this.setState( { loading: false, purchasing: false } );
+            } );
+
     }
 
        addActivityHandler = ( type ) => {
@@ -97,27 +126,43 @@ class CalorieTracker extends Component {
         for ( let key in disabledInfo ) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-     
-        return (
-            <Aux>
-                 <Modal show={this.state.submitting} modalClosed={this.submitCancelHandler}>
-                    <ActivitySummary 
+
+        let activitySummary = null;
+        let activities = this.state.error ? <p>Activities can't be loaded!</p> : <Spinner />;
+            if ( this.state.activity ) {
+            activities = (
+                <Aux>
+                    <Counter activity={this.state.activity}/>
+                    <CounterControls
+                        activityAdded={this.addActivityHandler}
+                        activityRemoved={this.removeActivityHandler}
+                        disabled={disabledInfo}
+                        submitable={this.state.submitable}
+                        submitted={this.submitHandler}
+                        count={this.state.totalCount} />
+                </Aux>
+            );
+                activitySummary = <ActivitySummary 
                         activity={this.state.activity}
                         total={this.state.totalCount}
                         submitCancelled={this.submitCancelHandler}
                         submitContinued={this.submitContinueHandler} />
+        }
+
+        if ( this.state.loading ) {
+       activitySummary= <Spinner />;
+        }
+             
+        return (
+            <Aux>
+                 <Modal show={this.state.submitting} modalClosed={this.submitCancelHandler}>
+                    {activitySummary}
                 </Modal>
-                <Counter activity={this.state.activity}/>
-                <CounterControls
-                 activityAdded={this.addActivityHandler}
-                 activityRemoved={this.removeActivityHandler}
-                 disabled={disabledInfo}
-                 submitable={this.state.submitable}
-                 submitted={this.submitHandler}
-                 count={this.state.totalCount} />
+                {activities}
             </Aux>
         );
     }
 }
 
-export default CalorieTracker;
+//global error handling
+export default withErrorHandler( CalorieTracker, axios );

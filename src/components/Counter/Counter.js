@@ -17,7 +17,7 @@ const counter = ( props ) => {
         transformedActivities = <p>Please start adding activities!</p>;
     }
     return (
-        <div className={classes.Burger}>
+        <div className={classes.Counter}>
            <CounterActivity/>
            {transformedActivities}
            <CounterActivity/>
