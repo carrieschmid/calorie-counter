@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './CounterControl.css';
+import classes from './CounterControl.module.css';
 
 const counterControl = (props) => (
     <div className={classes.CounterControl}>

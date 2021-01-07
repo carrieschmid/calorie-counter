@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './CounterControls.css';
+import classes from './CounterControls.module.css';
 import CounterControl from './CounterControl/CounterControl';
 
 const controls = [

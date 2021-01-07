@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './CounterActivity.css';
+import classes from './CounterActivity.module.css';
 
 class CounterActivity extends Component {
     render () {

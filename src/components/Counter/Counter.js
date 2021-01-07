@@ -1,6 +1,5 @@
 import React from 'react';
-
-import classes from './Counter.css';
+import classes from './Counter.module.css';
 import CounterActivity from './CounterActivity/CounterActivity';
 
 const counter = ( props ) => {

@@ -3,6 +3,7 @@ import CalorieTracker from './containers/CalorieTracker/CalorieTracker';
 import Layout from './hoc/Layout/Layout';
 
 
+
 class App extends Component {
   render () {
     return (

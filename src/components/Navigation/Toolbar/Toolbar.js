@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './Toolbar.css';
+import classes from './Toolbar.module.css';
 //this imports strings, class names, which are scoped to this component
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
