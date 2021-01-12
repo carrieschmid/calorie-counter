@@ -13,10 +13,10 @@ const workoutSummary = (props) => {
             </div> */}
             <Button 
                 btnType="Danger"
-                clicked={props.checkoutCancelled}>CANCEL</Button>
+                clicked={props.submitCancelled}>CANCEL</Button>
             <Button 
                 btnType="Success"
-                clicked={props.checkoutContinued}>CONTINUE</Button>
+                clicked={props.submitContinued}>CONTINUE</Button>
         </div>
     );
 }
