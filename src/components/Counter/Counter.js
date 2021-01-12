@@ -1,4 +1,6 @@
 import React from 'react';
+// import {withRouter} from 'react-router-dom';
+//this give access to match history and locatio
 import classes from './Counter.module.css';
 import CounterActivity from './CounterActivity/CounterActivity';
 

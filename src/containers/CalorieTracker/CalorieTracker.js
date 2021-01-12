@@ -7,6 +7,7 @@ import ActivitySummary from '../../components/Counter/ActivitySummary/ActivitySu
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 const ACTIVITY_CALORIES = {
     walking: 50,
@@ -59,27 +60,28 @@ class CalorieTracker extends Component {
     }
 
      submitContinueHandler = () => {
-        const entry = {
-            activity: this.state.activity,
-            count: this.state.totalCount,
-            customer: {
-                name: 'Carrie Schmid',
-                address: {
-                    street: 'Teststreet 1',
-                    zipCode: '41351',
-                    country: 'Germany'
-                },
-                email: 'test@test.com'
-            }
-        }
-        //.json for Firebase
-        axios.post( '/entry.json', entry )
-           .then( response => {
-                this.setState( { loading: false, purchasing: false } );
-            } )
-            .catch( error => {
-                this.setState( { loading: false, purchasing: false } );
-            } );
+        // const entry = {
+        //     activity: this.state.activity,
+        //     count: this.state.totalCount,
+        //     customer: {
+        //         name: 'Carrie Schmid',
+        //         address: {
+        //             street: 'Teststreet 1',
+        //             zipCode: '41351',
+        //             country: 'Germany'
+        //         },
+        //         email: 'test@test.com'
+        //     }
+        // }
+        // //.json for Firebase
+        // axios.post( '/entry.json', entry )
+        //    .then( response => {
+        //         this.setState( { loading: false, purchasing: false } );
+        //     } )
+        //     .catch( error => {
+        //         this.setState( { loading: false, purchasing: false } );
+        //     } );
+        this.props.history.push('/confirmation');
 
     }
 
