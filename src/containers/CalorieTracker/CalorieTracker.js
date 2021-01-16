@@ -60,20 +60,7 @@ class CalorieTracker extends Component {
     }
 
      submitContinueHandler = () => {
-        // const entry = {
-        //     activity: this.state.activity,
-        //     count: this.state.totalCount,
-        //     customer: {
-        //         name: 'Carrie Schmid',
-        //         address: {
-        //             street: 'Teststreet 1',
-        //             zipCode: '41351',
-        //             country: 'Germany'
-        //         },
-        //         email: 'test@test.com'
-        //     }
-        // }
-        // //.json for Firebase
+                // //.json for Firebase
         // axios.post( '/entry.json', entry )
         //    .then( response => {
         //         this.setState( { loading: false, purchasing: false } );
@@ -81,7 +68,17 @@ class CalorieTracker extends Component {
         //     .catch( error => {
         //         this.setState( { loading: false, purchasing: false } );
         //     } );
-        this.props.history.push('/confirmation');
+        const queryParams = [];
+        for (let i in this.state.activity){
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURI(this.state.activity[i]) )
+        }
+        queryParams.push('count=' + this.state.totalCount);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/confirmation',
+            search: '?' + queryString
+        });
+        // this.props.history.push('/confirmation');
 
     }
 
